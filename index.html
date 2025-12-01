@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>ToDo</h1>
+    </header>
+    
+    <div id="container">
+        <section>
+            <input type="text" id="taskInput" placeholder="Введите вашу задачу">
+            <select id="categorySelect">
+                <option value="Work">Работа</option>
+                <option value="Study">Учёба</option>
+                <option value="Home">Дом</option>
+            </select>
+            <select id="prioritySelect">
+                <option value="1">Низкий приоритет</option>
+                <option value="2">Средний приоритет</option>
+                <option value="3">Высокий приоритет</option>
+            </select>
+            <button id="addTaskBtn">Добавить задачу</button>
+        </section>
+
+        <aside id="adminPanel">
+            <button onclick="sortByCategory()">Сортировать по категории</button>
+            <button onclick="sortByPriority()">Сортировать по приоритету</button>
+            <select id="filterCategory" onchange="filterTasks()">
+                <option value="">Все                      </option>
+                <option value="Work">Работа</option>
+                <option value="Study">Учёба</option>
+                <option value="Home">Дом</option>
+            </select>
+        </aside>
+
+        <section id="taskList"></section>
+    </div>
+
+    <footer>
+        <p>Марчук Олег Викторович №2252</p>
+        <p>
+            <a href=""><img src="" alt="vk_uni" class="media_img"></a>
+            <a href=""><img src="" alt="vk_stud" class="media_img"></a>
+            <a href=""><img src="" alt="tg" class="media_img"></a>
+        </p>
+        <p>Университет Дубна, 2025</p>
+    </footer>
+    <script src="code.js"></script>
+</body>
+</html>
