@@ -1,0 +1,54 @@
+#container{
+    min-height: 66vh;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7fafc;
+    margin: 0;
+    color: #222;
+}
+
+header, footer {
+    background: #074f73;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+section, aside {
+    margin: 20px auto;
+    max-width: 600px;
+    background: #edebeb;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+input, select, button {
+    margin: 5px;
+    padding: 8px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.done {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.priority1 { color: green; }
+.priority2 { color: orange; }
+.priority3 { color: red; }
+
+.media_img {
+    width: 32px;
+    height: 32px;
+    margin: 0 3px;
+}
