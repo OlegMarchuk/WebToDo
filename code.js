@@ -67,26 +67,18 @@ function sortByStatus() {
 function filterTasks() {
     const cat = document.getElementById('filterCategory').value
     
+    document.getElementById('taskListWork').parentElement.style.display = 'block'
+    document.getElementById('taskListStudy').parentElement.style.display = 'block'
+    document.getElementById('taskListHome').parentElement.style.display = 'block'
+    
     if (cat === '') {
-        document.getElementById('taskListWork').parentElement.style.display = 'block'
-        document.getElementById('taskListStudy').parentElement.style.display = 'block'
-        document.getElementById('taskListHome').parentElement.style.display = 'block'
         showTasks(tasks)
-    } else {
-        document.getElementById('taskListWork').parentElement.style.display = 'none'
-        document.getElementById('taskListStudy').parentElement.style.display = 'none'
-        document.getElementById('taskListHome').parentElement.style.display = 'none'
-        
-        if (cat === 'Work') {
-            document.getElementById('taskListWork').parentElement.style.display = 'block'
-            showTasks(tasks.filter(t => t.category === 'Work'))
-        } else if (cat === 'Study') {
-            document.getElementById('taskListStudy').parentElement.style.display = 'block'
-            showTasks(tasks.filter(t => t.category === 'Study'))
-        } else if (cat === 'Home') {
-            document.getElementById('taskListHome').parentElement.style.display = 'block'
-            showTasks(tasks.filter(t => t.category === 'Home'))
-        }
+    } else if (cat === 'Work' || cat === 'Study' || cat === 'Home') {
+        showTasks(tasks.filter(t => t.category === cat))
+    } else if (cat === 'done') {
+        showTasks(tasks.filter(t => t.isDone === true))
+    } else if (cat === 'notDone') {
+        showTasks(tasks.filter(t => t.isDone === false))
     }
 }
 
