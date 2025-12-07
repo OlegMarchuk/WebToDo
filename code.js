@@ -15,19 +15,29 @@ document.getElementById('addTaskBtn').addEventListener('click', () => {
 })
 
 function showTasks(list=tasks) {
-    let html = ''
+    document.getElementById('taskListWork').innerHTML = ''
+    document.getElementById('taskListStudy').innerHTML = ''
+    document.getElementById('taskListHome').innerHTML = ''
+    
     list.forEach((task, index) => {
-        html += `
+        const html = `
         <div class="task ${task.isDone ? 'done' : ''}">
-            <span>${task.category} | ${task.name}</span>
+            <span>${task.name}</span>
             <div>
                 <button onclick="toggleDone(${index})">${task.isDone ? 'Undo' : 'Done'}</button>
                 <button onclick="editTask(${index})">Edit</button>
                 <button onclick="deleteTask(${index})">Delete</button>
             </div>
         </div>`
+        
+        if (task.category === 'Work') {
+            document.getElementById('taskListWork').innerHTML += html
+        } else if (task.category === 'Study') {
+            document.getElementById('taskListStudy').innerHTML += html
+        } else if (task.category === 'Home') {
+            document.getElementById('taskListHome').innerHTML += html
+        }
     })
-    document.getElementById('taskList').innerHTML = html
 }
 
 function toggleDone(index) {
@@ -54,8 +64,24 @@ function sortByCategory() {
 
 function filterTasks() {
     const cat = document.getElementById('filterCategory').value
-    if (cat === '') showTasks()
-    else showTasks(tasks.filter(t => t.category === cat))
+    if (cat === '') {
+        showTasks()
+    } else {
+        document.getElementById('taskListWork').style.display = 'none'
+        document.getElementById('taskListStudy').style.display = 'none'
+        document.getElementById('taskListHome').style.display = 'none'
+        
+        if (cat === 'Work') {
+            document.getElementById('taskListWork').style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Work'))
+        } else if (cat === 'Study') {
+            document.getElementById('taskListStudy').style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Study'))
+        } else if (cat === 'Home') {
+            document.getElementById('taskListHome').style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Home'))
+        }
+    }
 }
 
 showTasks()
