@@ -3,13 +3,11 @@ let tasks = []
 document.getElementById('addTaskBtn').addEventListener('click', () => {
     const name = document.getElementById('taskInput').value
     const category = document.getElementById('categorySelect').value
-    const priority = document.getElementById('prioritySelect').value
     if (name.trim() === '') return 
 
     tasks.push({
         name,
         category,
-        priority,
         isDone: false
     })
     document.getElementById('taskInput').value = '' 
@@ -20,7 +18,7 @@ function showTasks(list=tasks) {
     let html = ''
     list.forEach((task, index) => {
         html += `
-        <div class="task ${task.isDone ? 'done' : ''} priority${task.priority}">
+        <div class="task ${task.isDone ? 'done' : ''}">
             <span>${task.category} | ${task.name}</span>
             <div>
                 <button onclick="toggleDone(${index})">${task.isDone ? 'Undo' : 'Done'}</button>
@@ -51,11 +49,6 @@ function editTask(index) {
 
 function sortByCategory() {
     tasks.sort((a, b) => a.category.localeCompare(b.category))
-    showTasks()
-}
-
-function sortByPriority() {
-    tasks.sort((a, b) => b.priority - a.priority)
     showTasks()
 }
 

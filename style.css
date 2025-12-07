@@ -43,10 +43,6 @@ input, select, button {
     color: gray;
 }
 
-.priority1 { color: green; }
-.priority2 { color: orange; }
-.priority3 { color: red; }
-
 .media_img {
     width: 32px;
     height: 32px;
