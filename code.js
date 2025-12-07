@@ -57,8 +57,10 @@ function editTask(index) {
     showTasks()
 }
 
-function sortByCategory() {
-    tasks.sort((a, b) => a.category.localeCompare(b.category))
+function sortByStatus() {
+    tasks.sort((a, b) => {
+        return a.isDone === b.isDone ? 0 : a.isDone ? 1 : -1
+    })
     showTasks()
 }
 
