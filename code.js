@@ -1,4 +1,5 @@
 let tasks = []
+let draggedTaskIndex = null;
 
 document.getElementById('addTaskBtn').addEventListener('click', () => {
     const name = document.getElementById('taskInput').value
@@ -21,7 +22,9 @@ function showTasks(list=tasks) {
     
     list.forEach((task, index) => {
         const html = `
-        <div class="task ${task.isDone ? 'done' : ''}">
+        <div class="task ${task.isDone ? 'done' : ''}" 
+             draggable="true"
+             ondragstart="dragStart(${index})">
             <span>${task.name}</span>
             <div>
                 <button onclick="toggleDone(${index})">${task.isDone ? 'Undo' : 'Done'}</button>
@@ -38,6 +41,38 @@ function showTasks(list=tasks) {
             document.getElementById('taskListHome').innerHTML += html
         }
     })
+}
+
+function dragStart(index) {
+    draggedTaskIndex = index;
+    event.dataTransfer.setData('text/plain', index);
+    event.dataTransfer.effectAllowed = 'move';
+}
+
+function dragOver(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+}
+
+function dragEnterList(event) {
+    event.preventDefault();
+    event.currentTarget.classList.add('list-drag-over');
+}
+
+function dragLeaveList(event) {
+    event.currentTarget.classList.remove('list-drag-over');
+}
+
+function dropOnList(event, targetCategory) {
+    event.preventDefault();
+    event.currentTarget.classList.remove('list-drag-over');
+    
+    const sourceIndex = parseInt(event.dataTransfer.getData('text/plain'));
+    
+    if (sourceIndex !== null && tasks[sourceIndex].category !== targetCategory) {
+        tasks[sourceIndex].category = targetCategory;
+        showTasks();
+    }
 }
 
 function toggleDone(index) {
@@ -66,18 +101,39 @@ function sortByStatus() {
 
 function filterTasks() {
     const cat = document.getElementById('filterCategory').value
+    const workSection = document.getElementById('taskListWork').parentElement
+    const studySection = document.getElementById('taskListStudy').parentElement
+    const homeSection = document.getElementById('taskListHome').parentElement
     
-    document.getElementById('taskListWork').parentElement.style.display = 'block'
-    document.getElementById('taskListStudy').parentElement.style.display = 'block'
-    document.getElementById('taskListHome').parentElement.style.display = 'block'
+    workSection.style.display = 'none'
+    studySection.style.display = 'none'
+    homeSection.style.display = 'none'
     
     if (cat === '') {
+        workSection.style.display = 'block'
+        studySection.style.display = 'block'
+        homeSection.style.display = 'block'
         showTasks(tasks)
     } else if (cat === 'Work' || cat === 'Study' || cat === 'Home') {
-        showTasks(tasks.filter(t => t.category === cat))
+        if (cat === 'Work') {
+            workSection.style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Work'))
+        } else if (cat === 'Study') {
+            studySection.style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Study'))
+        } else if (cat === 'Home') {
+            homeSection.style.display = 'block'
+            showTasks(tasks.filter(t => t.category === 'Home'))
+        }
     } else if (cat === 'done') {
+        workSection.style.display = 'block'
+        studySection.style.display = 'block'
+        homeSection.style.display = 'block'
         showTasks(tasks.filter(t => t.isDone === true))
     } else if (cat === 'notDone') {
+        workSection.style.display = 'block'
+        studySection.style.display = 'block'
+        homeSection.style.display = 'block'
         showTasks(tasks.filter(t => t.isDone === false))
     }
 }

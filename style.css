@@ -55,3 +55,7 @@ section h2 {
     height: 32px;
     margin: 0 3px;
 }
+
+.task[draggable="true"] {
+    cursor: move;
+}

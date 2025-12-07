@@ -34,17 +34,17 @@
             </select>
         </aside>
 
-        <section>
+        <section ondragover="dragOver(event)" ondrop="dropOnList(event, 'Work')" ondragenter="dragEnterList(event)" ondragleave="dragLeaveList(event)">
             <h2>Работа</h2>
             <div id="taskListWork"></div>
         </section>
         
-        <section>
+        <section ondragover="dragOver(event)" ondrop="dropOnList(event, 'Study')" ondragenter="dragEnterList(event)" ondragleave="dragLeaveList(event)">
             <h2>Учёба</h2>
             <div id="taskListStudy"></div>
         </section>
         
-        <section>
+        <section ondragover="dragOver(event)" ondrop="dropOnList(event, 'Home')" ondragenter="dragEnterList(event)" ondragleave="dragLeaveList(event)">
             <h2>Дом</h2>
             <div id="taskListHome"></div>
         </section>
