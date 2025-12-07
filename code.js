@@ -1,6 +1,17 @@
 let tasks = []
 let draggedTaskIndex = null;
 
+function loadTasks() {
+    const savedTasks = localStorage.getItem('todoTasks')
+    if (savedTasks) {
+        tasks = JSON.parse(savedTasks)
+    }
+}
+
+function saveTasks() {
+    localStorage.setItem('todoTasks', JSON.stringify(tasks))
+}
+
 document.getElementById('addTaskBtn').addEventListener('click', () => {
     const name = document.getElementById('taskInput').value
     const category = document.getElementById('categorySelect').value
@@ -12,6 +23,7 @@ document.getElementById('addTaskBtn').addEventListener('click', () => {
         isDone: false
     })
     document.getElementById('taskInput').value = '' 
+    saveTasks()
     showTasks()
 })
 
@@ -71,17 +83,20 @@ function dropOnList(event, targetCategory) {
     
     if (sourceIndex !== null && tasks[sourceIndex].category !== targetCategory) {
         tasks[sourceIndex].category = targetCategory;
+        saveTasks()
         showTasks();
     }
 }
 
 function toggleDone(index) {
     tasks[index].isDone = !tasks[index].isDone
+    saveTasks()
     showTasks()
 }
 
 function deleteTask(index) {
     tasks.splice(index, 1)
+    saveTasks()
     showTasks()
 }
 
@@ -89,6 +104,7 @@ function editTask(index) {
     const task = tasks[index]
     const newName = prompt('Enter new name', task.name)
     if (newName) tasks[index].name = newName
+    saveTasks()
     showTasks()
 }
 
@@ -96,6 +112,7 @@ function sortByStatus() {
     tasks.sort((a, b) => {
         return a.isDone === b.isDone ? 0 : a.isDone ? 1 : -1
     })
+    saveTasks()
     showTasks()
 }
 
@@ -138,4 +155,5 @@ function filterTasks() {
     }
 }
 
+loadTasks()
 showTasks()
